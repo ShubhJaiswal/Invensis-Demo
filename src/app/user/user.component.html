@@ -1,0 +1,81 @@
+
+<table  id="dtBasicExample"  *ngIf="!isLoadingResults">
+  <thead>
+
+    <tr>
+      <th>Id</th>
+      <th>Name</th>
+      <th>View</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+  </thead>
+  <tbody >
+    <tr *ngFor="let user of users" >
+      <td>{{user.id}}</td>
+      <td>{{user.first_name}}</td>
+      <td><button mat-raised-button color='primary' [routerLink]="['/userdetail/', user.id]">View</button></td>
+      <td><button mat-raised-button [routerLink]="['/useredit/', user.id]">
+          <mat-icon>edit</mat-icon>
+        </button></td>
+      <td><button mat-raised-button (click)="deleteUser(user.id)">
+          <mat-icon>delete</mat-icon>
+        </button></td>
+    </tr>
+  </tbody>
+</table>
+
+<mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+
+<div class="pagination" *ngIf="!isLoadingResults">
+    <a (click)="pagePrevNext()">&laquo;</a>
+    <a *ngIf="showP" (click)="pageChange(1)">1</a>
+    <a (click)="pageChange(2)">2</a>
+    <a (click)="pageChange(3)">3</a>
+    <a *ngIf="!showP" (click)="pageChange(4)">4</a>
+    <a (click)="pagePrevNext()">&raquo;</a>
+  </div>
+
+  <mat-card *ngIf="isLoadingResults" class="example-card">
+      <mat-card-header>
+        <mat-card-title>Please wait, Data is Loading...</mat-card-title>
+      </mat-card-header>
+  </mat-card>
+
+<!--
+<button mat-raised-button (click)="pageChange(1)"> Page 1</button>
+<button mat-raised-button (click)="pageChange(2)"> Page 2</button>
+<button mat-raised-button (click)="pageChange(3)"> Page 3</button>
+<button mat-raised-button (click)="pageChange(4)"> Page 4</button> -->
+
+<!--
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]=users>
+
+      <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let user"> {{user.id}} </td>
+        </ng-container>
+
+    <ng-container matColumnDef="first_name">
+      <th mat-header-cell *matHeaderCellDef> First Name </th>
+      <td mat-cell *matCellDef="let user"> {{user.first_name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="last_name">
+      <th mat-header-cell *matHeaderCellDef> Last Name </th>
+      <td mat-cell *matCellDef="let user"> {{user.last_name}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="view">
+        <th mat-header-cell *matHeaderCellDef>  View </th>
+        <td mat-cell *matCellDef="let user">
+          <button>view</button>
+        </td>
+      </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+    <tr mat-row *matRowDef="let myRowData; columns: columnsToDisplay"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event" showFirstLastButtons></mat-paginator>
+</div> -->
